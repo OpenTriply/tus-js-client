@@ -253,9 +253,9 @@ var Upload = function () {
     }
   }, {
     key: "_emitSuccess",
-    value: function _emitSuccess() {
+    value: function _emitSuccess(data) {
       if (typeof this.options.onSuccess === "function") {
-        this.options.onSuccess();
+        this.options.onSuccess(data);
       }
     }
 
@@ -426,7 +426,7 @@ var Upload = function () {
         // data to the server
         if (offset === length) {
           _this3._emitProgress(length, length);
-          _this3._emitSuccess();
+          _this3._emitSuccess(xhr.response);
           return;
         }
 
@@ -493,7 +493,7 @@ var Upload = function () {
 
         if (offset == _this4._size) {
           // Yay, finally done :)
-          _this4._emitSuccess();
+          _this4._emitSuccess(xhr.response);
           _this4._source.close();
           return;
         }
