@@ -493,8 +493,15 @@ var Upload = function () {
 
         if (offset == _this4._size) {
           // Yay, finally done :)
-          _this4._emitSuccess(xhr.response);
-          _this4._source.close();
+          if (xhr._response) {
+            xhr._response.on('end', function () {
+              _this4._emitSuccess(xhr._response.responseText);
+              _this4._source.close();
+            });
+          } else {
+            _this4._emitSuccess(xhr.response);
+            _this4._source.close();
+          }
           return;
         }
 
